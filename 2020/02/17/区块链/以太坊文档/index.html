@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+
+    
+
+    
+
+    <title>以太坊文档（工作笔记） | Hht&#39;s Home</title>
+    <meta name="author" content="韩昊天" />
+    <meta name="keywords" content="学习,记录" />
+    <meta name="description" content="以太坊工作记录文档[toc]以太坊github : &amp;lt;https://github.com/ethereum/go-ethereumremix :  http://remix.ethereum.org/ json-rpc接口文档 : http://cw.hubwiz.com/card/c/ethereum-json-rpc-api/ABI编解码：https://solidity.readthedocs.io/en/develop/abi-spec.htmlgeth..." />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+
+    
+    <link rel="alternate" href="/atom.xml" title="Hht&#39;s Home" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/images/favicon.ico">
+    
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'icomoon';
+        src: url("/fonts/icomoon.eot?q628ml");
+        src: url("/fonts/icomoon.eot?q628ml#iefix") format('embedded-opentype'),
+             url("/fonts/icomoon.ttf?q628ml") format('truetype'),
+             url("/fonts/icomoon.woff?q628ml") format('woff'),
+             url("/fonts/icomoon.svg?q628ml#icomoon") format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+    </style>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!--[if lt IE 9]><style type="text/css">.nav-inner {top:0;}.author-meta {position:static;top:0;}.search-form {height:36px;}</style><script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script><![endif]-->
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+
+    <main class="app">
+        <header id="header" class="header clearfix">
+    <div id="nav" class="nav">
+    <div class="nav-mobile">
+        <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
+        <h1 class="nav-mobile-title nav-mobile-item">Hht&#39;s Home</h1>
+        <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
+    </div>
+
+    <nav id="nav-inner" class="nav-inner">
+        
+            <a class="nav-item" href="/">
+                <span class="nav-text">首页</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/java">
+                <span class="nav-text">Java</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/ops">
+                <span class="nav-text">Ops</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/linux">
+                <span class="nav-text">Linux</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/blockchain">
+                <span class="nav-text">区块链</span>
+            </a>
+        
+            <a class="nav-item" href="/tags">
+                <span class="nav-text">标签</span>
+            </a>
+        
+            <a class="nav-item" href="/archives">
+                <span class="nav-text">归档</span>
+            </a>
+        
+            <a class="nav-item" href="/about">
+                <span class="nav-text">关于</span>
+            </a>
+        
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#以太坊"><span class="toc-number">1.</span> <span class="toc-text">以太坊</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#版本约定"><span class="toc-number">1.1.</span> <span class="toc-text">版本约定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#部署私有节点"><span class="toc-number">1.2.</span> <span class="toc-text">部署私有节点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#控制台操作"><span class="toc-number">1.3.</span> <span class="toc-text">控制台操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#clique共识算法"><span class="toc-number">1.4.</span> <span class="toc-text">clique共识算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#原理"><span class="toc-number">1.4.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#搭建"><span class="toc-number">1.4.2.</span> <span class="toc-text">搭建</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#智能合约"><span class="toc-number">1.5.</span> <span class="toc-text">智能合约</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用remix部署"><span class="toc-number">1.5.1.</span> <span class="toc-text">使用remix部署</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用truffle部署"><span class="toc-number">1.5.2.</span> <span class="toc-text">使用truffle部署</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RPC"><span class="toc-number">1.6.</span> <span class="toc-text">RPC</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RPC接口调用智能合约"><span class="toc-number">1.6.1.</span> <span class="toc-text">RPC接口调用智能合约</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content">
+            <div id="wrapper" class="wrapper" style="max-width: 800px">
+                <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            以太坊文档（工作笔记）
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="http://yoursite.com/2020/02/17/%E5%8C%BA%E5%9D%97%E9%93%BE/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E6%96%87%E6%A1%A3/index.html">
+    
+    <i class="icon-calendar vm"></i>
+    
+    <time class="vm" datetime="2020-02-16T17:29:50.259Z" itemprop="datePublished">2020-02-17</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag vm"></i>
+    <a class="article-tag-link" href="/tags/eth/" rel="tag">eth</a>, <a class="article-tag-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <p>以太坊工作记录文档</p>
+<a id="more"></a>
+
+
+
+<p>[toc]</p>
+<h1 id="以太坊"><a href="#以太坊" class="headerlink" title="以太坊"></a>以太坊</h1><p>github : &lt;<a href="https://github.com/ethereum/go-ethereum" target="_blank" rel="noopener">https://github.com/ethereum/go-ethereum</a></p>
+<p>remix :  <a href="http://remix.ethereum.org/" target="_blank" rel="noopener">http://remix.ethereum.org/</a> </p>
+<p>json-rpc接口文档 : <a href="http://cw.hubwiz.com/card/c/ethereum-json-rpc-api/" target="_blank" rel="noopener">http://cw.hubwiz.com/card/c/ethereum-json-rpc-api/</a></p>
+<p>ABI编解码：<a href="https://solidity.readthedocs.io/en/develop/abi-spec.html" target="_blank" rel="noopener">https://solidity.readthedocs.io/en/develop/abi-spec.html</a></p>
+<p>geth启动选项： <a href="https://geth.ethereum.org/docs/interface/command-line-options" target="_blank" rel="noopener">https://geth.ethereum.org/docs/interface/command-line-options</a> </p>
+<h2 id="版本约定"><a href="#版本约定" class="headerlink" title="版本约定"></a>版本约定</h2><table>
+<thead>
+<tr>
+<th>服务</th>
+<th>版本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Go</td>
+<td>&gt;=1.10</td>
+</tr>
+<tr>
+<td>ethereum</td>
+<td>1.9.7-stable</td>
+</tr>
+<tr>
+<td>solidity</td>
+<td>0.5.0</td>
+</tr>
+</tbody></table>
+<h2 id="部署私有节点"><a href="#部署私有节点" class="headerlink" title="部署私有节点"></a>部署私有节点</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">前置环境</span><br><span class="line">$ yum install -y git boost gmp libgomp procps-ng gcc</span><br><span class="line">安装golang</span><br><span class="line">$ <span class="built_in">cd</span> /data/packet &amp;&amp; wget https://dl.google.com/go/go1.10.8.linux-amd64.tar.gz</span><br><span class="line">$ tar xzvf go1.10.8.linux-amd64.tar.gz -C ../software/ &amp;&amp; mkdir /data/project/gopath</span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">"</span></span><br><span class="line"><span class="string">export PATH=<span class="variable">$PATH</span>:/data/software/go/bin</span></span><br><span class="line"><span class="string">export GOPATH=/data/project/go"</span> &gt;&gt; /etc/profile &amp;&amp; <span class="built_in">source</span> /etc/profile &amp;&amp; go version</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">安装以太坊</span><br><span class="line">$ <span class="built_in">cd</span> /data/project/gopath</span><br><span class="line">$ git <span class="built_in">clone</span> https://github.com/ethereum/go-ethereum.git</span><br><span class="line">$ <span class="built_in">cd</span> go-ethereum </span><br><span class="line">$ make geth</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">cd</span> build/bin</span><br><span class="line">$ vim genesis.json  <span class="comment"># 私人网络需要定义创世区块</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"config"</span>: &#123;</span><br><span class="line">        <span class="string">"chainId"</span>: 12345,</span><br><span class="line">        <span class="string">"homesteadBlock"</span>: 0,</span><br><span class="line">        <span class="string">"eip150Block"</span>:0,</span><br><span class="line">        <span class="string">"eip155Block"</span>: 0,</span><br><span class="line">        <span class="string">"eip158Block"</span>: 0</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"coinbase"</span> : <span class="string">"0x0000000000000000000000000000000000000000"</span>,</span><br><span class="line">    <span class="string">"difficulty"</span> : <span class="string">"0x200"</span>,</span><br><span class="line">    <span class="string">"extraData"</span> : <span class="string">""</span>,</span><br><span class="line">    <span class="string">"gasLimit"</span> : <span class="string">"0xffffffff"</span>,</span><br><span class="line">    <span class="string">"nonce"</span> : <span class="string">"0x0000000000000042"</span>,</span><br><span class="line">    <span class="string">"mixhash"</span> : <span class="string">"0x0000000000000000000000000000000000000000000000000000000000000000"</span>,</span><br><span class="line">    <span class="string">"parentHash"</span> : <span class="string">"0x0000000000000000000000000000000000000000000000000000000000000000"</span>,</span><br><span class="line">    <span class="string">"timestamp"</span> : <span class="string">"0x00"</span>,</span><br><span class="line">    <span class="string">"alloc"</span>: &#123; </span><br><span class="line">        <span class="string">"093f59f1d91017d30d8c2caa78feb5beb0d2cfaf"</span>: &#123;</span><br><span class="line">            <span class="string">"balance"</span>: <span class="string">"0xffffffffffffffff"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- 初始化创世区块</span><br><span class="line">$ ./build/bin/geth init ./genesis.json  --datadir <span class="string">"/data/project/jupai-data"</span></span><br><span class="line">- 启动geth（--allow-insecure-unlock 开启HTTP通道解锁账户）</span><br><span class="line">$ ./build/bin/geth --datadir <span class="string">"/data/project/jupai-data"</span> --rpc --rpccorsdomain <span class="string">'*'</span> --rpcapi <span class="string">'personal,web3,eth,net,jupai'</span> --rpcaddr <span class="string">'192.168.4.203'</span> --rpccorsdomain http://remix.ethereum.org --allow-insecure-unlock --networkid 9999 --nodiscover --gcmode archive --targetgaslimit <span class="string">"9000000000000"</span> console</span><br><span class="line">- 后台启动</span><br><span class="line">$ nohup ...... &gt; /data/project/eth-data/geth.log 2&gt;&amp;1 &amp;</span><br><span class="line">- 连接geth客户端</span><br><span class="line">$ ./build/bin/geth attach http://192.168.4.203:8545   <span class="comment"># 这种模式无法启动挖矿</span></span><br><span class="line">$ ./build/bin/geth attach ipc:/data/project/eth-data/geth.ipc</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- goland配置参数</span><br><span class="line">init C:\gopath\src\github.com\ethereum\go-ethereum\genesis.json --datadir <span class="string">"E:\jupai-data"</span></span><br><span class="line"></span><br><span class="line">--datadir <span class="string">"E:\jupai-data"</span> --rpc --rpccorsdomain <span class="string">'*'</span> --rpcapi personal,web3,eth,net,jupai --rpcaddr <span class="string">"192.168.4.111"</span> --rpcport 8545 --rpccorsdomain http://remix.ethereum.org --allow-insecure-unlock --networkid 9999 --nodiscover --gcmode archive --targetgaslimit <span class="string">"9000000000000"</span> console</span><br></pre></td></tr></table></figure>
+
+<p>1Ether=10^18Wei</p>
+<h2 id="控制台操作"><a href="#控制台操作" class="headerlink" title="控制台操作"></a>控制台操作</h2><p> <a href="https://github.com/ethereum/go-ethereum/wiki/Management-APIs" target="_blank" rel="noopener">https://github.com/ethereum/go-ethereum/wiki/Management-APIs</a> </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">web3.eth.gasPrice  获取当前gasPrice</span><br><span class="line"></span><br><span class="line">- 账号</span><br><span class="line">personal.newAccount(<span class="string">"1qaz2wsx"</span>)  新建账号</span><br><span class="line">personal.listAccounts  查看账号</span><br><span class="line">personal.unlockAccount(eth.accounts[0], <span class="string">"1qaz2wsx"</span>, 300)  解锁用户, 默认5分钟有效，指定为0使账户永久解锁</span><br><span class="line">eth.getBalance(eth.accounts[0])  查看余额</span><br><span class="line">web3.fromWei(eth.getBalance(eth.accounts[0]), <span class="string">"ether"</span>) 查看余额，eth单位</span><br><span class="line">eth.syncing  同步状态, <span class="literal">false</span>为同步完成</span><br><span class="line">web3.fromWei(10, <span class="string">"ether"</span>) wei转换eth </span><br><span class="line">web3.toWei(0.0001, <span class="string">"ether"</span>)  eth转换wei</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- 挖矿</span><br><span class="line">miner.setEtherbase(eth.accounts[n])  指定挖矿用户</span><br><span class="line">miner.start();admin.sleepBlocks(1);miner.stop();txpool.status  开启挖矿且只挖一个块</span><br><span class="line">miner.start(1)  开始挖矿, 默认第一个账号</span><br><span class="line">miner.stop()  停止挖矿</span><br><span class="line">eth.mining  查看挖矿状态</span><br><span class="line">eth.coinbase  查看挖矿奖励地址</span><br><span class="line">eth.blockNumber  查看区块数量</span><br><span class="line"></span><br><span class="line">- 转账,89000000000000000000000000000</span><br><span class="line">txpool.status  待打包交易数</span><br><span class="line">txpool.inspect.pending  待打包交易列表详情</span><br><span class="line">txpoll.content  待打包交易列表详情</span><br><span class="line">eth.sendTransaction(&#123;from:eth.accounts[0],to:eth.accounts[1],value:web3.toWei(3,<span class="string">'ether'</span>)&#125;)</span><br><span class="line">eth.sendTransaction(&#123;  //转账</span><br><span class="line">    from:eth.accounts[0],     //交易的发起地址</span><br><span class="line">    to:eth.accounts[1],       //接收交易的地址</span><br><span class="line">    value:web3.toWei(1,<span class="string">"ether"</span>);   //交易的金额，这里是转换成了以太币的方式</span><br><span class="line">&#125;);</span><br><span class="line">eth.getTransaction(<span class="string">""</span>)  获取交易详情</span><br><span class="line">eth.getTransactionReceipt(<span class="string">""</span>)  获取交易收据</span><br><span class="line">eth.getBlock(n)  获取指定区块号的信息</span><br><span class="line"></span><br><span class="line">- 节点操作。只有创世文件与networkId相同的节点才能互连，datadir文件内容不一致也可能导致连不上。</span><br><span class="line">admin.nodeInfo.enode  <span class="comment"># 查看snode信息</span></span><br><span class="line">admin.peers  <span class="comment"># 查看已连接节点列表</span></span><br><span class="line">admin.addPeer(<span class="string">"enode://***"</span>)  <span class="comment"># 连接节点</span></span><br><span class="line">net.peerCount  <span class="comment"># 查看已连接节点数量</span></span><br><span class="line">admin.addPeer(<span class="string">"enode://894eda34a66d93508060727357730e04ea1eecbbb4663827063b8f4435185e75bfde16a96fc36ca7abb9b4273e4bd1eee3942ccb14a2b049e4de5de52b8a9480@122.235.255.8:30303"</span>)</span><br><span class="line"></span><br><span class="line">- 智能合约</span><br><span class="line">eth.getCode(coinContractIns.address)</span><br><span class="line">eth.defaultAccount=eth.coinbase  <span class="comment"># 设置调用合约的账号</span></span><br><span class="line">instance.set(val, &#123;gas: 500000,from:eth.accounts[0]&#125;);  <span class="comment"># 指定gas费用，指定部署合约的用户</span></span><br><span class="line">web3.sha3(<span class="string">"func"</span>).substring(0,10)  <span class="comment"># 计算合约方法abi</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="clique共识算法"><a href="#clique共识算法" class="headerlink" title="clique共识算法"></a>clique共识算法</h2><p> Clique是一种权威证明共识协议（POA  Proof of Authority ），自2017年4月以来一直服务于 <a href="https://www.rinkeby.io/" target="_blank" rel="noopener">Rinkeby</a> 测试网</p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p><a href="https://github.com/ethereum/EIPs/issues/225" target="_blank" rel="noopener">以太坊225提案（点击进入）</a>，描述了设计动机与设计约束。</p>
+<p> <a href="https://ethfans.org/ajian1984/articles/Clique-Consensus-Algorithm" target="_blank" rel="noopener">https://ethfans.org/ajian1984/articles/Clique-Consensus-Algorithm</a> </p>
+<p> <a href="https://www.jianshu.com/p/2be997c4705a" target="_blank" rel="noopener">https://www.jianshu.com/p/2be997c4705a</a> </p>
+<p>节点分为认证节点和非认证节点，每个认证节点可以利用本地节点的账号私钥对一个区块的数据进行签名，将产生的数字签名放置在区块头中；</p>
+<p>普通节点接受到区块后，从区块头的extra字段中取出 认证节点的签名， 利用 标准的<code>spec256k1</code>椭圆曲线进行反解公钥信息，并从公钥中截取签名地址，如果此地址在本地节点维护的是签名列表中，则认为该区块是合法区块。</p>
+<p><strong>工作流程如下：</strong></p>
+<ol>
+<li>在创世块中指定一组初始授权的signers, <strong>所有地址</strong> 保存在创世块Extra字段中</li>
+<li>启动挖矿后, 该组signers开始对生成的block进行 <strong>签名并广播.</strong> </li>
+<li><strong>签名结果</strong> 保存在区块头的Extra字段中</li>
+<li>Extra中更新当前高度已授权的 <strong>所有signers的地址</strong> ,因为有新加入或踢出的signer</li>
+<li>每一高度都有一个signer处于IN-TURN状态, 其他signer处于OUT-OF-TURN状态, IN-TURN的signer签名的block会 <strong>立即广播</strong> , OUT-OF-TURN的signer签名的block会 <strong>延时</strong> 一点随机时间后再广播, 保证IN-TURN的签名block有更高的优先级上链</li>
+<li>如果需要加入一个新的signer, signer通过API接口发起一个proposal, 该proposal通过复用区块头 <strong>Coinbase(新signer地址)和Nonce(“0xffffffffffffffff”)</strong> 字段广播给其他节点. 所有已授权的signers对该新的signer进行”加入”投票, 如果赞成票超过signers总数的50%, 表示同意加入</li>
+<li>如果需要踢出一个旧的signer, 所有已授权的signers对该旧的signer进行”踢出”投票, 如果赞成票超过signers总数的50%, 表示同意踢出</li>
+</ol>
+<p><strong>几个关键的块变量：</strong></p>
+<ul>
+<li><p><strong>checkpoint</strong>: 一个特殊的block，它的高度是EPOCH_LENGTH的整数倍，block中不包含投票信息但包含当时所有的签名者列表 。</p>
+</li>
+<li><p><strong>SIGNER_COUNT</strong> ：当前signer总数。</p>
+</li>
+<li><p><strong>SIGNER_LIMIT</strong> ：连续块数量（数量是floor(SIGNER_COUNT/2) + 1），在这些连续块中，单个signers最多只能签一个块；同时也是提议生效最小票数。</p>
+</li>
+<li><p><strong>SIGNER_INDEX</strong> ：当前块singers在当前授权签名者列表中索引。</p>
+</li>
+<li><p><strong>BLOCK_PERIOD</strong>：两个相邻的块的Time字段的最小差值，也是出块周期。</p>
+</li>
+<li><p><strong>EPOCH_LENGTH</strong>：两个checkpoint之间的block的数量。达到这个数量后会生成checkpoint以及清除当前所有未生效的投票信息。</p>
+</li>
+<li><p><strong>DIFF_INTURN</strong>：签名块的难度（默认为2），此状态代表“按道理已经轮到我出块”。 如果<code>BLOCK_NUMBER % SIGNER_COUNT != SIGNER_INDEX</code> </p>
+</li>
+<li><p><strong>DIFF_NOTURN</strong>：签名块的难度（默认为1），此状态代表“按道理还没轮到我出块”。 如果<code>BLOCK_NUMBER % SIGNER_COUNT == SIGNER_INDEX</code> </p>
+</li>
+</ul>
+<p><strong>区块头组成：</strong></p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>parentHash</td>
+<td>common.Hash</td>
+<td>父区块的哈希值</td>
+</tr>
+<tr>
+<td>UncleHash</td>
+<td>common.Hash</td>
+<td>叔父区块列表的哈希值</td>
+</tr>
+<tr>
+<td>Coinbase</td>
+<td>common.Address</td>
+<td>打包该区块的矿工的地址，用于接收矿工费</td>
+</tr>
+<tr>
+<td>Root</td>
+<td>common.Hash</td>
+<td>状态树的根哈希值</td>
+</tr>
+<tr>
+<td>TxHash</td>
+<td>common.Hash</td>
+<td>交易树的根哈希值</td>
+</tr>
+<tr>
+<td>ReceiptHash</td>
+<td>common.Hash</td>
+<td>收据树的根哈希值</td>
+</tr>
+<tr>
+<td>Bloom</td>
+<td>Bloom</td>
+<td>交易收据日志组成的Bloom过滤器</td>
+</tr>
+<tr>
+<td>Difficulty</td>
+<td>*Big.Int</td>
+<td>本区块的难度</td>
+</tr>
+<tr>
+<td>Number</td>
+<td>*Big.Int</td>
+<td>本区块块号，区块号从0号开始算起</td>
+</tr>
+<tr>
+<td>GasLimit</td>
+<td>uint64</td>
+<td>本区块中所有交易消耗的Gas上限，不等于所有交易中Gas limit的和</td>
+</tr>
+<tr>
+<td>GasUsed</td>
+<td>uint64</td>
+<td>本区块中所有交易使用的Gas之和</td>
+</tr>
+<tr>
+<td>Time</td>
+<td>*big.Int</td>
+<td>区块产生的unix时间戳，一般是打包区块的时间，这个字段不是出块的时间戳</td>
+</tr>
+<tr>
+<td>Extra</td>
+<td>[]byte</td>
+<td>区块的附加数据</td>
+</tr>
+<tr>
+<td>MixDigest</td>
+<td>common.Hash</td>
+<td>哈希值，与Nonce的组合用于工作量计算</td>
+</tr>
+<tr>
+<td>Nonce</td>
+<td>BlockNonce</td>
+<td>区块产生时的随机值</td>
+</tr>
+</tbody></table>
+<p>POA并没有改变原有的区块结构，而是复用了区块头中的 <strong>Coinbase和Nonce字段</strong> 以创建投票方案：</p>
+<ul>
+<li><p>Extra字段中包含所有签名者列表和 当前节点签名者对该区块头的签名数据(可以恢复出来签名者的地址)</p>
+</li>
+<li><p>常规的块中这两个字段置为 0</p>
+</li>
+<li><p>如果签名者希望对授权签名者列表进行更改，则将： </p>
+<ul>
+<li><p><strong>Coinbase</strong> 设置为被投票的签名者</p>
+</li>
+<li><p>将 <strong>Nonce</strong> 设置为  <strong>0xff … f</strong> 代表 添加，设置为<strong>0</strong>代表移除 </p>
+</li>
+<li><p>任何同步的客户端都可以在块处理过程中“统计”投票，并通过投票结果来维护授权签名者列表。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>epoch与checkpoint：</strong></p>
+<p>为了避免一个无限的时间来统计投票（ 某些恶意节点不断地发起purposal ），设置了投票窗口epoch，长度在genesis中自定义。每隔一个<code>epoch</code>所有节点都会将处于pending状态的投票、统计信息都删除，并在当前区块中填入当前所有认证节点的地址信息，供其他节点进行一次状态同步。</p>
+<ul>
+<li><p>作为签名者列表的检查点，这允许客户端仅基于检查点哈希进行同步，而不必重播在链路上完成的所有投票。</p>
+</li>
+<li><p>也可以防止signer在每个他们签名的block都注入垃圾投票提议，导致系统允许缓慢。</p>
+</li>
+</ul>
+<p><strong>投票signers：</strong></p>
+<p>对于每个非epoch的过渡块</p>
+<ol>
+<li><p>signers可以对自己的每个区块投一票（即便是踢出票），提议对授权列表进行更改，只有大于51%的signers同意才能通过。</p>
+</li>
+<li><p>提议随着区块的生成实时进行，无效提议不会受到惩罚。</p>
+</li>
+<li><p>提议生效后，该提议所有的pending票都会被放弃并从头开始。</p>
+</li>
+<li><p>禁止级联投票！！！当移除一个授权signers时可能会导致其他移除前的投票成立。</p>
+<p> 例如：ABCD 4个signers，AB同意加入E（此时没有超过半数无法通过），如果这时ABC同意移除了D会导致E的投票立即成立</p>
+</li>
+</ol>
+<p><strong>特点：</strong></p>
+<ol>
+<li><p>依靠预设好的授权节点(signers)负责产生block，由已授权的signer选举(投票超过50%)加入新的signer </p>
+</li>
+<li><p>每个授权节点无法连续出块<code>Signed recently, must wait for others</code>，所以即使存在恶意节点最多只能攻击连续块 <strong>SIGNER_LIMIT</strong> 中的一个，期间其他signer可以投票踢出该signer。</p>
+<p> 出块为轮询出块，但实际出块顺序并不是固定的，会轮流为每个signers设置难度为DIFF_INTURN(2)，其他signers难度为DIFF_NOTURN(1)。这样难度高的链在签名与传播方面略有优势 就会称为主链。</p>
+</li>
+<li><p>投票提议是否会持久化？会，写入了区块头的Extra字段中。重启是否还需要重新进行认证？不需要，但仍需重新连接节点，但不用重新投票。</p>
+</li>
+<li><p>挖矿没有奖励，创世区块中预设的eth消耗完毕如何处理？</p>
+<p> 在<a href="https://github.com/ethereum/EIPs/issues/225#issuecomment-444467432" target="_blank" rel="noopener">github的这条回复(点击进入)</a>中说明了，没有审查制度可以表决向某个地址增减资金；</p>
+<p> 所以解决办法只有在创世文件中预置大量账号并存放疯狂的资金，同时将gasPrice设置为1；</p>
+</li>
+<li><p>挖矿没有奖励，那么转账时支付的GAS去哪儿了？</p>
+</li>
+</ol>
+<h3 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h3><ul>
+<li>创世文件</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">$ cat ../genesis-clique.json</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"config"</span>: &#123;</span><br><span class="line">    <span class="string">"chainId"</span>: 123456,</span><br><span class="line">    <span class="string">"clique"</span>: &#123;</span><br><span class="line">      <span class="string">"period"</span>: 3,</span><br><span class="line">      <span class="string">"epoch"</span>: 30000</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"difficulty"</span> : <span class="string">"1"</span>,</span><br><span class="line">  <span class="string">"gasLimit"</span> : <span class="string">"8000000"</span>,</span><br><span class="line">  <span class="string">"extradata"</span>: <span class="string">"0x0000000000000000000000000000000000000000000000000000000000000000C86A29E8361C81759FDcAFD85714C969FEae17600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"</span>,</span><br><span class="line">  <span class="string">"alloc"</span>: &#123;</span><br><span class="line">    <span class="string">"C86A29E8361C81759FDcAFD85714C969FEae1760"</span>: &#123; <span class="string">"balance"</span>: <span class="string">"90000000000000000000000000000"</span> &#125;,</span><br><span class="line">    <span class="string">"73e97c9d222d655db437421441b3e0a86a459d39"</span>: &#123; <span class="string">"balance"</span>: <span class="string">"90000000000000000000000000000"</span> &#125;,</span><br><span class="line">    <span class="string">"50c530d63817134e31b0f88ace8ec6ebd846087d"</span>: &#123; <span class="string">"balance"</span>: <span class="string">"90000000000000000000000000000"</span> &#125;,</span><br><span class="line">    <span class="string">"530e1ee2598627428ca25c21123e8b9165da5a7a"</span>: &#123; <span class="string">"balance"</span>: <span class="string">"90000000000000000000000000000"</span> &#125;,</span><br><span class="line">    <span class="string">"ff59512486d1382996d9f970545885254ac75a7d"</span>: &#123; <span class="string">"balance"</span>: <span class="string">"90000000000000000000000000000"</span> &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">###################################################################</span></span><br><span class="line">clique.period : 出块间隔。设置为0时表示没有空块，但需要加上--syncmode <span class="string">"full"</span>设置成全节点同步</span><br><span class="line">clique.epoch : 当一个block的高度恰好是<span class="string">"epoch"</span>值的整数倍时，这个block便不会包含任何投票信息，而是包含了当前所有的签名者列表。这个block被叫做checkpoint</span><br><span class="line">extradata ： 预设的挖矿账号，前面用0x加上64个0，后面加上130个0</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>启动节点</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">节点操作</span><br><span class="line">$ <span class="built_in">exit</span> &amp;&amp; <span class="built_in">kill</span> $(ps aux | grep geth | awk <span class="string">'&#123;print $2&#125;'</span>)</span><br><span class="line">$ rm -rf /data/project/eth-data-clique/geth*</span><br><span class="line">$ ./build/bin/geth init ./genesis-clique.json --datadir <span class="string">"../eth-data-clique/"</span></span><br><span class="line">$ ./build/bin/geth --datadir <span class="string">"../eth-data-clique"</span> --rpc --rpccorsdomain <span class="string">'*'</span> --rpcapi <span class="string">'personal,web3,eth,net'</span> --rpcaddr <span class="string">'192.168.4.203'</span> --rpccorsdomain http://remix.ethereum.org --allow-insecure-unlock --networkid 9999 --nodiscover --gcmode archive --targetgaslimit <span class="string">"9000000000000"</span> --gasprice 1 --syncmode <span class="string">"full"</span>  </span><br><span class="line">$ nohup ...... &gt; ../eth-data-clique/geth.log 2&gt;&amp;1 &amp;</span><br><span class="line">$ ./build/bin/geth attach ipc:../eth-data-clique/geth.ipc</span><br><span class="line">	</span><br><span class="line">&gt; personal.listAccounts;web3.fromWei(eth.getBalance(eth.accounts[0]), <span class="string">"ether"</span>)</span><br><span class="line">&gt; eth.blockNumber</span><br><span class="line">&gt; txpool.status</span><br><span class="line">&gt; personal.unlockAccount(eth.accounts[0],<span class="string">"1qaz2wsx"</span>,0);eth.sendTransaction(&#123;from:eth.accounts[0],to:eth.accounts[1],value:web3.toWei(3,<span class="string">'ether'</span>)&#125;)</span><br><span class="line"></span><br><span class="line">添加对等节点</span><br><span class="line">&gt;admin.addPeer(<span class="string">"enode://591a04a263c6e8bf06286b6d2731274d54a4aa3c67e4995e22a638e35a6b113fed63006821489cdb9fe8e9ca56b7673b172610c3d7d9420dcd70bbff3f25d85f@192.168.4.203:30303"</span>)</span><br><span class="line">&gt; eth.sendTransaction(&#123;from:eth.accounts[0],to:<span class="string">""</span>,value:web3.toWei(3,<span class="string">'ether'</span>)&#125;)</span><br><span class="line"></span><br><span class="line">授权提议，要么单节点要么多于三个节点。</span><br><span class="line">&gt; clique.proposals  <span class="comment"># 返回本节点正在投票的提议</span></span><br><span class="line">auth为<span class="literal">true</span>：赞成该地址进行签名，需要超过半数的认证节点同意才有效，添加后需要挖矿写入区块才算授权成功</span><br><span class="line">auth为<span class="literal">false</span>：反对该地址进行签名</span><br><span class="line">&gt; clique.propose(<span class="string">"0xff59512486d1382996d9f970545885254ac75a7d"</span>, <span class="literal">true</span>)</span><br><span class="line">从签署者列表中删除该签名者，认证节点不会再对该地址进行投票。注意并不是禁止它挖矿</span><br><span class="line">&gt; clique.discard(<span class="string">"0xff59512486d1382996d9f970545885254ac75a7d"</span>)</span><br><span class="line">&gt; clique.getSnapshot()  <span class="comment"># 返回最近区块的clique快照</span></span><br><span class="line">&gt; clique.getSigners()  <span class="comment"># 返回授权签署者列表</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="智能合约"><a href="#智能合约" class="headerlink" title="智能合约"></a>智能合约</h2><p>以太坊中账号分为两种：</p>
+<p>外部账号（EOA）：由公私钥对控制，私钥单向生成公钥，公钥再生成外部账户的地址；</p>
+<p>合约账号（CA）： 智能合约的部署会把合约字节码发布到区块链上，并使用一个特定的地址来标示这个合约，这个地址就是合约账户。 </p>
+<p> 合约账户存储了代码，外部账户则没有。除了这点之外，这两类账户对于以太坊虚拟机（EVM）来说都是一样的。 </p>
+<p>合约以以太坊特定的二进制字节码通过以太坊虚拟机(EVM)运行于区块链上。 </p>
+<p>合约应用程序二进制接口（ABI）是在以太坊生态系统中与合约进行交互的标准方法，既可以从区块链外部进行，也可以用于合约间的交互。 </p>
+<h3 id="使用remix部署"><a href="#使用remix部署" class="headerlink" title="使用remix部署"></a>使用remix部署</h3><ul>
+<li>solidity.sol</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity &gt;&#x3D;0.4.22 &lt;0.6.0;</span><br><span class="line"></span><br><span class="line">contract ItemBuild&#123;</span><br><span class="line">    string name;</span><br><span class="line">    uint age;</span><br><span class="line">    event Instructor(string name, uint age);</span><br><span class="line">    function setInfo(string memory _name , uint  _age ) public &#123;</span><br><span class="line">        name &#x3D; _name;</span><br><span class="line">        age &#x3D; _age;</span><br><span class="line">        emit Instructor( name,age);</span><br><span class="line">    &#125;</span><br><span class="line">    function getInfo() public view returns (string memory,uint) &#123;</span><br><span class="line">        return (name,age);</span><br><span class="line">    &#125;</span><br><span class="line">    function getDefault() public view returns(address)&#123;</span><br><span class="line">        return (msg.sender);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>进入SOLIDITY COMPILER</p>
+<p>ABI（ Application Binary Interface ）: 是合约对外的接口描述。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&gt; var abi = JSON.parse(<span class="string">'ABI文件内容'</span>)</span><br><span class="line">&gt; coin = web3.eth.contract(abi)</span><br><span class="line">&gt; byteCode = <span class="string">"0x"</span>+BYTECODE中的object内容，直接拼接上</span><br><span class="line">例如byteCode = <span class="string">"0x608060405234801561001057600080fd"</span></span><br><span class="line"></span><br><span class="line">预估部署智能合约需要的Gas值，设置两个值的中间值作为gas费用即可，gas费用太少contract会无法部署成功</span><br><span class="line">&gt; eth.estimateGas(&#123;data: byteCode&#125;)</span><br><span class="line">&gt; eth.getBlock(<span class="string">"pending"</span>).gasLimit</span><br><span class="line">325425963</span><br><span class="line">解锁 coinbase 账户</span><br><span class="line">&gt; personal.unlockAccount(eth.coinbase, <span class="string">"1234"</span>)</span><br><span class="line">创建 coin 合约对象，部署合约</span><br><span class="line">&gt; coinContractIns = coin.new(&#123;data: byteCode gas: 3887576417, from: eth.coinbase&#125;, <span class="keyword">function</span>(e, contract)&#123;</span><br><span class="line">  <span class="keyword">if</span>(!e)&#123;</span><br><span class="line">    <span class="keyword">if</span>(!contract.address)&#123;</span><br><span class="line">      console.log(<span class="string">"Contract transaction send: Transaction Hash: "</span>+contract.transactionHash+<span class="string">" waiting to be mined..."</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">      console.log(<span class="string">"Contract mined! Address: "</span> + contract.address);</span><br><span class="line">      console.log(contract);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    console.log(e)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">启动挖矿，将合约打包到链上</span><br><span class="line">&gt; miner.start(1)</span><br><span class="line">&gt; miner.stop()</span><br><span class="line">查看合约是否部署成功</span><br><span class="line">&gt; eth.getCode(coinContractIns.address)</span><br><span class="line">&gt; coinContractIns.balances(<span class="string">"0xec6ae9e50f9be62d76df2a3c1ad722039de493e7"</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="使用truffle部署"><a href="#使用truffle部署" class="headerlink" title="使用truffle部署"></a>使用truffle部署</h3><p> 一套以太坊的开发测试框架 </p>
+<p>github： <a href="https://github.com/trufflesuite/truffle" target="_blank" rel="noopener">https://github.com/trufflesuite/truffle</a> </p>
+<p>快速入门：  <a href="https://learnblockchain.cn/docs/truffle/quickstart.html" target="_blank" rel="noopener">https://learnblockchain.cn/docs/truffle/quickstart.html</a> </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">安装</span><br><span class="line">$ npm install -g truffle</span><br><span class="line"></span><br><span class="line">创建一个初始项目，contracts存放合约.sol文件，migrations：部署脚本，truffle-config.js：网络与项目配置</span><br><span class="line">$ truffle init</span><br><span class="line"></span><br><span class="line">编译sol文件，会在build下生成对应的json文件</span><br><span class="line">$ truffle compile</span><br><span class="line">测试节点</span><br><span class="line">$ truffle <span class="built_in">test</span> --network &lt;network-name&gt;</span><br><span class="line">发布到对应节点上</span><br><span class="line">$ truffle migrate --network &lt;network-name&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h2 id="RPC"><a href="#RPC" class="headerlink" title="RPC"></a>RPC</h2><p> RPC(Remote Procedure Call)指的是远程过程调用 </p>
+<p>可以查看余额、进行转账、查看交易</p>
+<h3 id="RPC接口调用智能合约"><a href="#RPC接口调用智能合约" class="headerlink" title="RPC接口调用智能合约"></a>RPC接口调用智能合约</h3><p>RPC使用有一些惯例，但它们不是JSON-RPC 2.0规范的一部分，这些惯例如下：</p>
+<ul>
+<li>数字是十六进制编码。做这个决定是因为有些语言对运行极大的数字没有或有很少的限制。为了防止这些错误数字类型是十六进制编码，由开发者来分析这些数字并正确处理它们。</li>
+<li>默认区块数字。RPC方法接受区块数字。在一些情况下，给出区块数字是不可能的或者不太方便。在那样的情况下，默认区块数字可以是以下字符串中的一个[”earliest”, “latest”, “pending”]。(就像我查询余额的时候，带的”latest”)。</li>
+</ul>
+<ol>
+<li><p>合约代码</p>
+<p> 编译器版本 ： Compiler  0.5.0+</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity &gt;&#x3D;0.4.22 &lt;0.6.0;</span><br><span class="line">contract Multiply7 &#123;</span><br><span class="line">    </span><br><span class="line">   event Print(uint);</span><br><span class="line">   </span><br><span class="line">   function multiply(uint input) public returns (uint) &#123;</span><br><span class="line">      emit Print(input * 7);</span><br><span class="line">      return input * 7;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> 在 <strong>remix ide</strong> 上编译然后部署</p>
+</li>
+<li><p>调用合约</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">调用接口：</span><br><span class="line">from为调用合约的账户（即合约详情中的from），to为要调用的合约地址（即合约详情中contractAddress）。</span><br><span class="line">data为调用方法的签名和传入参数，它的编码方式是：</span><br><span class="line">web3.sha3(&quot;func&quot;).substring(0,10) + to_32bit_Hex_str(7)</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    &quot;jsonrpc&quot;: &quot;2.0&quot;,</span><br><span class="line">    &quot;method&quot;: &quot;eth_sendTransaction&quot;,</span><br><span class="line">    &quot;params&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;from&quot;: &quot;0x7d755475d95c290350a408b01925bc7881666c3f&quot;,</span><br><span class="line">            &quot;to&quot;: &quot;0xd2537f62acbc1a469057ad67626840738afcf971&quot;,</span><br><span class="line">            &quot;data&quot;: &quot;0xc6888fa10000000000000000000000000000000000000000000000000000000000000007&quot;,</span><br><span class="line">            &quot;gas&quot;:&quot;0x47b760&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    &quot;id&quot;: 6</span><br><span class="line">&#125;</span><br><span class="line">接口返回</span><br><span class="line">&#123;</span><br><span class="line">    &quot;jsonrpc&quot;: &quot;2.0&quot;</span><br><span class="line">    &quot;id&quot;: 6,</span><br><span class="line">    &quot;result&quot;: &quot;0xb2da69491c58e0b8e9a8c0449788ebccc09a9db712c3a82336c026212969e8c6&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ul>
+<li><p>一些问题</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- 报错 Error: invalid address</span><br><span class="line">设置 eth.defaultAccount&#x3D;eth.coinbase;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+
+        
+    </section>
+</article>
+
+
+
+<a id="pagenext" href="/2019/12/13/ops/Jenkins%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3/" class="article-next" title="Jenkins技术文档"><i class="icon-arrow-right"></i></a>
+
+
+
+
+
+            </div>
+        </div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?e4027971a230b210f4671f485b33846a";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    
+</footer>
+
+    </main>
+
+    <script type="text/javascript" src="https://unpkg.com/jquery@1.9.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var nodes = {
+            nav: $('#nav'),
+            aside: $('#aside'),
+            asideInner: $('#aside-inner'),
+            navInner: $('#nav-inner')
+        };
+
+        var doing = false;
+        nodes.asideInner.on('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function() {
+            if (nodes.aside.hasClass('mobile-open')) {
+                nodes.aside.removeClass('mobile-open');
+            } else {
+                nodes.aside.removeClass('mobile-close panel-show');
+            }
+            doing = false;
+        });
+        $('#open-panel, #aside-mask').on('click', function() {
+            if (doing) {
+                return;
+            }
+
+            if (nodes.aside.hasClass('panel-show')) {
+                nodes.aside.addClass('mobile-close');
+            } else {
+                nodes.aside.addClass('mobile-open panel-show');
+            }
+        });
+        $('#open-menus').on('click', function() {
+            nodes.navInner.slideToggle('normal', slideDone);
+        });
+
+        if (window.innerWidth <= 960) {
+            setTimeout(function() {
+                nodes.navInner.slideUp('normal', slideDone);
+            }, 3000);
+        }
+
+        function slideDone() {
+            if (nodes.navInner.css('display') !== 'none') {
+                nodes.navInner.css('display', '');
+            }
+        }
+
+        $(window).on('resize', function() {
+            console.log($(this).width())
+            if ($(this).width() > 960) {
+                nodes.navInner.css('display', '');
+            }
+        });
+    });
+    </script>
+    
+        
+<script src="/js/scrollspy.min.js"></script>
+
+        <script type="text/javascript">
+        $(document.body).scrollspy({target: '#aside-inner'});
+
+        $(window).on('resize', function() {
+            var hw = $('#header').width();
+            var ww = $('#wrapper').width();
+            var space = ($(this).width() - hw - ww) / 2 / 2;
+
+            var pageprev = $('#pageprev');
+            var pagenext = $('#pagenext');
+            var avg = (pageprev.width() + pagenext.width()) / 2
+
+            if(space > avg) {
+                var len = space - avg / 2;
+                var styles = {position: 'fixed', top: '50%', marginTop: - (pageprev.width() + pagenext.width()) / 4}
+                pageprev.css($.extend({left: hw + len}, styles));
+                pagenext.css($.extend({right: len}, styles));
+            } else {
+                pageprev.removeAttr('style');
+                pagenext.removeAttr('style');
+            }
+        }).trigger('resize');
+        </script>
+    
+
+</body>
+</html>
